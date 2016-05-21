@@ -1,0 +1,68 @@
+{% extends 'admin/index.html' %}
+
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% block tit %} Lista de Clientes {% endblock %}
+{% block cont %}
+  <table class="table table-bordered">
+     <thead>
+      	<tr>
+           <th>Nome</th>
+           <th>Ações</th>
+      	</tr>
+    </thead>
+    <tbody>
+    	{% for c in cl %}
+      		<tr>
+        		<td><a href="">{{ c.nome }}</a></td>
+        		<td>
+        			<a href="" class="btn btn-success"><span class="glyphicon glyphicon-edit"></a>
+        			<a href="" class="btn btn-danger" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-remove"></a>
+        		</td>
+      		</tr>
+      	{% endfor %}
+    </tbody>
+  </table>
+  <div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        	<h4 class="modal-title">Aviso!</h4>
+      	</div>
+      	<div class="modal-body">
+        	<p>Você tem certeza que deseja excluir o usuario?</p>
+      	</div>
+      	<div class="modal-footer">
+      		<a href="" class="btn btn-success" data-dismiss="modal">Excluir</a>
+        	<a href="" class="btn btn-danger" data-dismiss="modal">Cacelar</a>
+      	</div>
+    	</div>
+
+  		</div>
+	</div>
+{% endblock %}
+
+  <div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        	<h4 class="modal-title">Modal Header</h4>
+      	</div>
+      	<div class="modal-body">
+        	<p>Some text in the modal.</p>
+      	</div>
+      	<div class="modal-footer">
+        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      	</div>
+    	</div>
+
+  		</div>
+	</div>

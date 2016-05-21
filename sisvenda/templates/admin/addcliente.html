@@ -1,0 +1,21 @@
+{% extends 'admin/index.html' %}
+
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% block tit %} Cadastro de cliente {% endblock %}
+{% block msg %}
+	{% if not msg == '' %}
+		<div class="alert alert-warning">
+  			 <strong>Aviso!</strong> {{ msg }}.
+		</div>
+	{% endif %}
+{% endblock %}
+{% block cont %}
+	<form action="" method="post">
+		{% csrf_token %}	
+		{% bootstrap_form form %}
+	<button type="submit" class="btn btn-success">Cadastrar Cliente</button>
+	</form>
+{% endblock %}
