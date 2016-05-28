@@ -1,0 +1,41 @@
+{% extends 'admin/index.html' %}
+
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% block tit %} Registrar Pedido {% endblock %}
+{% block msg %}
+	{% if not msg == '' %}
+		<div class="alert alert-warning">
+  			 <strong>Aviso!</strong> Valor a Pagar {{ valorp }}.
+		</div>
+	{% endif %}
+{% endblock %}
+{% block cont %}
+	<form action="" method="post" enctype="multipart/form-data">
+		{% csrf_token %}	
+		{% bootstrap_form form %}
+	<button type="submit" class="btn btn-success">Cadastrar Pedido</button>
+	<a href="" class="btn btn-danger a" data-toggle="modal" data-target="#formemail">Adicionar Item a venda</a>
+	</form>
+ 	<div id="formemail" class="modal fade" role="dialog">
+ 				 <div class="modal-dialog">
+
+     					<div class="modal-content">
+      						<div class="modal-header">
+        						<button type="button" class="close" data-dismiss="modal">&times;</button>
+        						<h4 class="modal-title">Cadastrar Item</h4>
+      						</div>
+      						<div class="modal-body">
+        						<form action="" method="get">{% csrf_token %}
+        							{% bootstrap_form formitem %}
+        							<button type="submit" class="btn btn-success">Cadastrar Item</button>
+        							<a href="" class="btn btn-danger" data-dismiss="modal">Cancelar Cadastro</a> 
+        						</form>
+      						</div>
+    					</div>
+
+  				</div>
+	</div>
+{% endblock %}

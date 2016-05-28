@@ -1,0 +1,103 @@
+{% extends 'admin/index.html' %}
+
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load staticfiles %}
+
+{% block css %}
+	.a{
+		margin-left:310px;
+		width:150px;
+	}
+	.b{
+		margin-left:290px;
+		width:150px;
+	}
+	.c{
+		margin-left:269px;
+	}
+{% endblock %}
+
+
+{% block tit %}
+	 <div class="media">
+	  		<a class="media-left" href="#">
+              <img alt="64x64" width="150" height="150" src="{{ pro.foto.url }}" class="img-circle" data-holder-rendered="true">	
+            </a>
+            <div class="media-body">
+              <br>
+              <br>	
+              Produto: {{ pro.produto }}
+              <br>
+              Descrição: {{ pro.descricao_produto }}<br>
+              Estoque: {{ pro.estoque }}<br>
+              Fornecedor: {{ pro.fornecedor.nome }}
+            </div>
+     </div> 
+{% endblock %}
+{% block cont %}
+  <label>Fatores do {{ pro.produto }}</label><a href="" class="btn btn-success a" data-toggle="modal" data-target="#formemail">Adicionar Fator</a>
+ 	<div id="formemail" class="modal fade" role="dialog">
+ 				 <div class="modal-dialog">
+
+     					<div class="modal-content">
+      						<div class="modal-header">
+        						<button type="button" class="close" data-dismiss="modal">&times;</button>
+        						<h4 class="modal-title">Cadastre o fator</h4>
+      						</div>
+      						<div class="modal-body">
+        						<form action="{% url 'loja.views.AddUni' id=pro.pk %}" method="post">{% csrf_token %}
+        							{% bootstrap_form form %}
+        							<button type="submit" class="btn btn-success">Cadastrar Fator</button>
+        							<a href="" class="btn btn-danger" data-dismiss="modal">Cancelar Cadastro</a> 
+        						</form>
+      						</div>
+    					</div>
+
+  				</div>
+	</div> 
+  <br>
+  <table class="table table-bordered">
+     <thead>
+      	<tr>
+           <th>Descrição</th>
+           <th>Fator</th>
+      	</tr>
+    </thead>
+    <tbody>
+    	{% for f in fator %}
+      		<tr>
+        		<td>{{ f.descricao }}</a></td>
+        		<td>{{ f.fator }}</a></td>
+        		<td>
+        			<a href="" class="btn btn-success"><span class="glyphicon glyphicon-edit"></a>
+        			<a href="" class="btn btn-danger" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-remove"></a>
+        		</td>
+      		</tr>
+      	{% endfor %}
+    </tbody>
+  </table>
+
+  		{% for f in fator %}
+         		<div id="myModal" class="modal fade" role="dialog">
+ 				 <div class="modal-dialog">
+
+     					<div class="modal-content">
+      						<div class="modal-header">
+        						<button type="button" class="close" data-dismiss="modal">&times;</button>
+        						<h4 class="modal-title">Aviso!</h4>
+      						</div>
+      						<div class="modal-body">
+        						<p>Você tem certeza que deseja excluir {{ f.fator }}?</p>
+      						</div>
+      						<div class="modal-footer">
+      							<a href="{% url 'loja.views.ClearUni' id=f.pk %}" class="btn btn-success">Sim, Excluir</a>
+        						<a href="" class="btn btn-danger" data-dismiss="modal">Cancelar</a>
+      						</div>
+    					</div>
+
+  				</div>
+			</div>
+		{% endfor %}
+{% endblock %}

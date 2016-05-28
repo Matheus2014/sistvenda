@@ -1,0 +1,54 @@
+{% extends 'admin/index.html' %}
+
+  {% load bootstrap3 %}
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+
+  {% block tit %}Relatorio Financeiro{% endblock %}
+
+  {% block cont %}
+    <table class="table table-bordered">
+       <thead>
+        	<tr>
+        	   <th>Fornecedor</th>
+               <th>Valor Total</th>
+               <th>Data</th>
+               <th>Ações</th>
+        	</tr>
+      </thead>
+      <tbody>
+      	{% for f in fin %}
+        		<tr>
+          		<td><a href="{% url 'loja.views.viewFornecedor' id=f.entidade.pk %}">{{ f.entidade.nome }}</a></td>
+              	<td>{{ f.valor_total }}</td>
+              	<td>{{ f.data }}</td>
+          		<td>
+          			<a href="" class="btn btn-danger" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-remove"></a>
+          		</td>
+        		</tr>
+        	{% endfor %}
+      </tbody>
+    </table>
+
+    		{% for f in fin %}
+           		<div id="myModal" class="modal fade" role="dialog">
+   				 <div class="modal-dialog">
+
+       					<div class="modal-content">
+        						<div class="modal-header">
+          						<button type="button" class="close" data-dismiss="modal">&times;</button>
+          						<h4 class="modal-title">Aviso!</h4>
+        						</div>
+        						<div class="modal-body">
+          						<p>Você tem certeza que deseja excluir este relatorio?</p>
+        						</div>
+        						<div class="modal-footer">
+        							<a href="{% url 'loja.views.ClearFinanceiroPedido'	 pk=f.pk %}" class="btn btn-success">Excluir</a>
+          						<a href="" class="btn btn-danger" data-dismiss="modal">Cacelar</a>
+        						</div>
+      					</div>
+
+    				</div>
+  			</div>
+  		{% endfor %}
+  {% endblock %}

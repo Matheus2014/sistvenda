@@ -5,6 +5,6 @@
 
 {% block form %}
   	{% bootstrap_form form %}
-	<button type="submit" class="btn btn-success">Entrar</button>
-  	<a href="{% url 'loja.views.cadastro' %}" class="btn btn-danger">Cadastrar</a>
+	<button type="submit" class="btn btn-success">Cadastrar</button>
+  	<a href="{% url 'loja.views.login' %}" class="btn btn-danger">Entrar</a>
 {% endblock %}

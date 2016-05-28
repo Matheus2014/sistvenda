@@ -12,6 +12,17 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 	<script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.js' %}" ></script>	
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+	<style type="text/css">
+		{% block css %}
+			.hed{
+				text-align: center;
+			}
+			.media{
+				margin-left: 50px;
+			}
+		{% endblock %}
+	</style>
 </head>
 <body>
 	<header>
@@ -19,7 +30,7 @@
 
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
+            <ul class="sidebar-nav nav-stacked">
                 <li class="sidebar-brand">
                     <a href="#">
                         SisVenda
@@ -28,17 +39,91 @@
                 <li>
                     <a href="{% url 'loja.views.admin' %}">Home</a>
                 </li>
-                <li>
-                    <a href="{% url 'loja.views.addcliente' %}">Cliente</span></a>
-                </li>
-                <li>
-                    <a href="{% url 'loja.views.listCliente' %}">Lista Cliente</a>
-                </li>
-                <li>
-                    <a href="{% url 'loja.views.sair' %}">Sair</a>
-                </li>
+                <li class="dropdown">
+        			<a class="dropdown-toggle" data-toggle="dropdown" href="#">Movimentar
+        					<span class="caret"></span></a>
+        				<ul class="dropdown-menu">
+          					<li>
+          				         <a href="{% url 'loja.views.ProssVenda' %}">Venda</a>
+          		            </li>
+          		            <li>
+          				         <a href="{% url 'loja.views.ProssPedido' %}">Pedido</a>
+          		            </li>		  
+        				</ul>
+      				
+      			</li>
+      			<li class="dropdown">
+        			<a class="dropdown-toggle" data-toggle="dropdown" href="#">Financeiro
+        					<span class="caret"></span></a>
+        				<ul class="dropdown-menu">
+          					<li>
+                    			<a href="{% url 'loja.views.financeiro' %}">Vendas</a>
+                			</li>
+                			<li>
+                    			<a href="{% url 'loja.views.financeiroPedido' %}">Pedidos</a>
+                			</li>		  
+        				</ul>
+      				
+      			</li>                
+                <li class="dropdown">
+        			<a class="dropdown-toggle" data-toggle="dropdown" href="#">Cadastrar
+        					<span class="caret"></span></a>
+        				<ul class="dropdown-menu">
+          					  <li>
+                    			  <a href="{% url 'loja.views.addcliente' %}">Cliente</span></a>
+                			  </li>
+                			  <li>
+                    			  <a href="{% url 'loja.views.AddProduto' %}">Produto</span></a>
+                			  </li> 
+                			  <li>
+                    			  <a href="{% url 'loja.views.addFornecedor' %}">Fornecedor</span></a>
+                			  </li>  
+        				</ul>
+      				
+      			</li>
+      			<li class="dropdown">
+        			<a class="dropdown-toggle" data-toggle="dropdown" href="#">Listar
+        					<span class="caret"></span></a>
+        				<ul class="dropdown-menu">
+          					  <li>
+                    				<a href="{% url 'loja.views.listCliente' %}">Cliente</a>
+                			  </li>
+                			  <li>
+                    			  <a href="{% url 'loja.views.ListProduto' %}">Produto</span></a>
+                			  </li> 
+                			  <li>
+                    			  <a href="{% url 'loja.views.listFornecedor' %}">Fornecedor</span></a>
+                			  </li>
+                			  <li>
+                    			  <a href="{% url 'loja.views.listVenda' %}">Venda</span></a>
+                			  </li>
+                			   <li>
+                    			  <a href="{% url 'loja.views.listPedido' %}">Pedido</span></a>
+                			  </li>  
+        				</ul>	
+  				</li>	
             </ul>
         </div>
+	   <nav class="navbar navbar-inverse">
+			  <div class="container-fluid">
+			    <div class="navbar-header">
+			      <a class="navbar-brand" href="#"><img alt="65x65" width="30" height="30" src="{{ user.foto.url }}" class="img-circle" data-holder-rendered="true"></a>
+			    </div>
+			    <ul class="nav navbar-nav navbar-right">
+			      <li>
+			      <a href="" class="dropdown-toggle" data-toggle="dropdown">{{ user.username }} <span class="caret"></span></a>
+                		<ul class="dropdown-menu">
+                			 <li>
+                    			<a href="{% url 'loja.views.config' %}">Configurações</a>
+                			 </li>
+          					 <li>
+                    			<a href="{% url 'loja.views.sair' %}">Sair</a>
+                			 </li>  
+        				</ul>
+        		   </li>
+			    </ul>
+			  </div>
+		</nav>
 
 	</header>
 	<main>
@@ -46,25 +131,47 @@
             <div class="container-fluid">
                 <div class="row">
                 	<div class="col-sm-6 col-xs-offset-3">
-                		<div class="well well-sm">{% block tit %} Home {% endblock %}</div>
+                		<div class="well well-sm">
+                		{% block tit %} Home 
+                		{% endblock %}
+                		</div>
                 	</div>
                 	<div class="col-sm-6 col-xs-offset-3">
                 		{% block msg %}{% endblock %}
-                	</div>	
-                    <div class="col-sm-6 col-xs-offset-3 panel panel-default">
+                	</div>
+                	<div class="col-sm-6 col-xs-offset-3 ">
+                    {% block cont4 %}{% endblock %}
+                    </div>	
+                    <div class="col-sm-6 col-xs-offset-3">
                     	{% block cont %}
-                        <h1>Simple Sidebar</h1>
-                        <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
-                        <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
-                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                    		<h4 class="hed">Informações do Desenvolvedor:</h4>
+                     		<div class = "media">
+							   <a class = "pull-left" href = "#">
+							      <img class = "media-object img-circle" src = "{% static 'img/m.jpg' %}" alt = "Media Object">
+							   </a>
+							   <br>
+							   <br>
+							   <div class = "media-body">
+							      <h4 class = "media-heading">Matheus Italo</h4>
+							      	Idade: 17 anos <br>
+							      	Formação: Cursando Técnico em Informatica<br>
+							      	Instituição: IFRN-Campus João Camara<br>
+							   </div>
+								
+							</div>
                         {% endblock %}
+                    </div>
+                    <div class="col-sm-6 col-xs-offset-3 ">
+                    {% block cont2 %}{% endblock %}
+                    </div>
+                    <div class="col-sm-6 col-xs-offset-3 ">
+                    {% block cont3 %}{% endblock %}
                     </div>
                 </div>
             </div>
         </div>
         <!-- /#page-content-wrapper -->
 
-    </div>
 	</main>
 	<footer></footer>
 </body>

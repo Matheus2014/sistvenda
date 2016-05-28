@@ -1,0 +1,52 @@
+{% extends 'admin/index.html' %}
+
+  {% load bootstrap3 %}
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+
+  {% block tit %}Vendas{% endblock %}
+
+  {% block cont %}
+    <table class="table table-bordered">
+       <thead>
+        	<tr>
+        	   <th>Cliente</th>
+             <th>Valor da venda</th>
+             <th>Ações</th>
+        	</tr>
+      </thead>
+      <tbody>
+      	{% for v in venda %}
+        		<tr>
+          		<td><a href="{% url 'loja.views.viewCliente' id=v.cliente.pk %}">{{ v.cliente.nome }}</a></td>
+              <td>{{ v.valor }}</td>
+          		<td>
+          			<a href="" class="btn btn-danger" data-toggle="modal" data-target="#myModal"> Cancelar Venda <span class="glyphicon glyphicon-remove"></a>
+          		</td>
+        		</tr>
+        	{% endfor %}
+      </tbody>
+    </table>
+
+    		{% for v in venda %}
+           		<div id="myModal" class="modal fade" role="dialog">
+   				 <div class="modal-dialog">
+
+       					<div class="modal-content">
+        						<div class="modal-header">
+          						<button type="button" class="close" data-dismiss="modal">&times;</button>
+          						<h4 class="modal-title">Aviso!</h4>
+        						</div>
+        						<div class="modal-body">
+          						<p>Você tem certeza que deseja cancelar essa venda?</p>
+        						</div>
+        						<div class="modal-footer">
+        							<a href="{% url 'loja.views.CancelaVenda' id=v.pk %}" class="btn btn-success">Cancelar Venda</a>
+          						<a href="" class="btn btn-danger" data-dismiss="modal">Fechar</a>
+        						</div>
+      					</div>
+
+    				</div>
+  			</div>
+  		{% endfor %}
+  {% endblock %}

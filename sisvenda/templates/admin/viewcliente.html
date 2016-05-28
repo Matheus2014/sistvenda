@@ -1,0 +1,245 @@
+{% extends 'admin/index.html' %}
+
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load staticfiles %}
+
+{% block css %}
+	.a{
+		margin-left:310px;
+		width:150px;
+	}
+	.b{
+		margin-left:290px;
+		width:150px;
+	}
+	.c{
+		margin-left:269px;
+	}
+{% endblock %}
+
+
+{% block tit %}
+	 <div class="media">
+	  		<a class="media-left" href="#">
+              <img alt="64x64" width="150" height="150" src="{{ cl.foto.url }}" class="img-circle" data-holder-rendered="true">	
+            </a>
+            <div class="media-body">
+              <br>
+              <br>	
+              Nome: {{ cl.nome }}
+              <br>
+              Idade: {{ cl.idade }}<br>
+              Sexo: {{ cl.sexo }}
+            </div>
+     </div> 
+{% endblock %}
+{% block cont %}
+  <label>Emails de {{ cl.nome }}</label><a href="" class="btn btn-success a" data-toggle="modal" data-target="#formemail">Adicionar Email</a>
+ 	<div id="formemail" class="modal fade" role="dialog">
+ 				 <div class="modal-dialog">
+
+     					<div class="modal-content">
+      						<div class="modal-header">
+        						<button type="button" class="close" data-dismiss="modal">&times;</button>
+        						<h4 class="modal-title">Cadastre o email</h4>
+      						</div>
+      						<div class="modal-body">
+        						<form action="{% url 'loja.views.AddEmail' id=cl.pk %}" method="post">{% csrf_token %}
+        							{% bootstrap_form formEmail %}
+        							<button type="submit" class="btn btn-success">Cadastrar Email</button>
+        							<a href="" class="btn btn-danger" data-dismiss="modal">Cancelar Cadastro</a> 
+        						</form>
+      						</div>
+    					</div>
+
+  				</div>
+	</div> 
+  <br>
+  <table class="table table-bordered">
+     <thead>
+      	<tr>
+           <th>Email</th>
+           <th>Descrição</th>
+           <th>Ações</th>
+      	</tr>
+    </thead>
+    <tbody>
+    	{% for e in mail %}
+      		<tr>
+        		<td>{{ e.email }}</a></td>
+        		<td>{{ e.descricao }}</a></td>
+        		<td>
+        			<a href="" class="btn btn-success"><span class="glyphicon glyphicon-edit"></a>
+        			<a href="" class="btn btn-danger" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-remove"></a>
+        		</td>
+      		</tr>
+      	{% endfor %}
+    </tbody>
+  </table>
+
+  		{% for e in mail %}
+         		<div id="myModal" class="modal fade" role="dialog">
+ 				 <div class="modal-dialog">
+
+     					<div class="modal-content">
+      						<div class="modal-header">
+        						<button type="button" class="close" data-dismiss="modal">&times;</button>
+        						<h4 class="modal-title">Aviso!</h4>
+      						</div>
+      						<div class="modal-body">
+        						<p>Você tem certeza que deseja excluir {{ e.email }}?</p>
+      						</div>
+      						<div class="modal-footer">
+      							<a href="{% url 'loja.views.ClearEmail' idemail=e.pk %}" class="btn btn-success">Sim, Excluir</a>
+        						<a href="" class="btn btn-danger" data-dismiss="modal">Cancelar</a>
+      						</div>
+    					</div>
+
+  				</div>
+			</div>
+		{% endfor %}
+{% endblock %}
+
+{% block cont2 %}	
+       
+ <label>Endereços de {{ cl.nome }}</label><a href="" class="btn btn-success b" data-toggle="modal" data-target="#formende">Adicionar Endereço</a>
+ 	<div id="formende" class="modal fade" role="dialog">
+ 				 <div class="modal-dialog">
+
+     					<div class="modal-content">
+      						<div class="modal-header">
+        						<button type="button" class="close" data-dismiss="modal">&times;</button>
+        						<h4 class="modal-title">Cadastre o endereço</h4>
+      						</div>
+      						<div class="modal-body">
+        						<form action="{% url 'loja.views.AddEnde' id=cl.pk %}" method="post">{% csrf_token %}
+        							{% bootstrap_form formEnde %}
+        							<button type="submit" class="btn btn-success">Cadastrar Endereço</button>
+        							<a href="" class="btn btn-danger" data-dismiss="modal">Cancelar Cadastro</a> 
+        						</form>
+      						</div>
+    					</div>
+
+  				</div>
+	</div> 
+  <br>
+  <table class="table table-bordered">
+     <thead>
+      	<tr>
+           <th>Cep</th>
+           <th>Tipo</th>
+           <th>Descrição</th>
+           <th>Numero</th>
+           <th>Ações</th>
+      	</tr>
+    </thead>
+    <tbody>
+    	{% for e in ende %}
+      		<tr>
+        		<td>{{ e.cep }}</td>
+        		<td>{{ e.tipo }}</td>
+        		<td>{{ e.descricao }}</td>
+        		<td>{{ e.numero }}</td>
+        		<td>
+        			<a href="" class="btn btn-success"><span class="glyphicon glyphicon-edit"></a>
+        			<a href="" class="btn btn-danger" data-toggle="modal" data-target="#myModall"><span class="glyphicon glyphicon-remove"></a>
+        		</td>
+      		</tr>
+      	{% endfor %}
+    </tbody>
+  </table>
+
+  		{% for e in ende %}
+         		<div id="myModall" class="modal fade" role="dialog">
+ 				 <div class="modal-dialog">
+
+     					<div class="modal-content">
+      						<div class="modal-header">
+        						<button type="button" class="close" data-dismiss="modal">&times;</button>
+        						<h4 class="modal-title">Aviso!</h4>
+      						</div>
+      						<div class="modal-body">
+        						<p>Você tem certeza que deseja excluir {{ e.cep }}?</p>
+      						</div>
+      						<div class="modal-footer">
+      							<a href="{% url 'loja.views.ClearEnde' idende=e.pk %}" class="btn btn-success">Sim, Excluir</a>
+        						<a href="" class="btn btn-danger" data-dismiss="modal">Cancelar</a>
+      						</div>
+    					</div>
+
+  				</div>
+			</div>
+		{% endfor %} 
+{% endblock %}
+{% block cont3 %}
+ <label>Documentos de {{ cl.nome }}</label><a href="" class="btn btn-success c" data-toggle="modal" data-target="#formdoc">Adicionar Documento</a>
+ 	<div id="formdoc" class="modal fade" role="dialog">
+ 				 <div class="modal-dialog">
+
+     					<div class="modal-content">
+      						<div class="modal-header">
+        						<button type="button" class="close" data-dismiss="modal">&times;</button>
+        						<h4 class="modal-title">Cadastre o documento</h4>
+      						</div>
+      						<div class="modal-body">
+        						<form action="{% url 'loja.views.AddDoc' id=cl.pk %}" method="post">{% csrf_token %}
+        							{% bootstrap_form formDoc %}
+        							<button type="submit" class="btn btn-success">Cadastrar Documento</button>
+        							<a href="" class="btn btn-danger" data-dismiss="modal">Cancelar Cadastro</a> 
+        						</form>
+      						</div>
+    					</div>
+
+  				</div>
+	</div> 
+  <br>
+  <table class="table table-bordered">
+     <thead>
+      	<tr>
+           <th>Numero</th>
+           <th>Tipo</th>
+           <th>Emissão</th>
+           <th>Vencimento</th>
+           <th>Ações</th>
+      	</tr>
+    </thead>
+    <tbody>
+    	{% for e in doc %}
+      		<tr>
+        		<td>{{ e.numero }}</td>
+        		<td>{{ e.tipo }}</td>
+        		<td>{{ e.emissao }}</td>
+        		<td>{{ e.vencimento }}</td>
+        		<td>
+        			<a href="" class="btn btn-success"><span class="glyphicon glyphicon-edit"></a>
+        			<a href="" class="btn btn-danger" data-toggle="modal" data-target="#myModall"><span class="glyphicon glyphicon-remove"></a>
+        		</td>
+      		</tr>
+      	{% endfor %}
+    </tbody>
+  </table>
+
+  		{% for e in doc %}
+         		<div id="myModall" class="modal fade" role="dialog">
+ 				 <div class="modal-dialog">
+
+     					<div class="modal-content">
+      						<div class="modal-header">
+        						<button type="button" class="close" data-dismiss="modal">&times;</button>
+        						<h4 class="modal-title">Aviso!</h4>
+      						</div>
+      						<div class="modal-body">
+        						<p>Você tem certeza que deseja excluir {{ e.cep }}?</p>
+      						</div>
+      						<div class="modal-footer">
+      							<a href="{% url 'loja.views.ClearDoc' iddoc=e.pk %}" class="btn btn-success">Sim, Excluir</a>
+        						<a href="" class="btn btn-danger" data-dismiss="modal">Cancelar</a>
+      						</div>
+    					</div>
+
+  				</div>
+			</div>
+		{% endfor %}
+{% endblock %}

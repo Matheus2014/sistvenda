@@ -4,7 +4,7 @@
 {% bootstrap_css %}
 {% bootstrap_javascript %}
 
-{% block tit %} Cadastro de cliente {% endblock %}
+{% block tit %} Cadastro de fornecedor {% endblock %}
 {% block msg %}
 	{% if not msg == '' %}
 		<div class="alert alert-warning">
@@ -16,6 +16,6 @@
 	<form action="" method="post" enctype="multipart/form-data">
 		{% csrf_token %}	
 		{% bootstrap_form form %}
-	<button type="submit" class="btn btn-success">Cadastrar Cliente</button>
+	<button type="submit" class="btn btn-success">Cadastrar Fornecedor</button>
 	</form>
 {% endblock %}

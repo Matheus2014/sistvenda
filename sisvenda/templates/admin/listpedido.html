@@ -1,0 +1,54 @@
+{% extends 'admin/index.html' %}
+
+  {% load bootstrap3 %}
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+
+  {% block tit %}Pedidos{% endblock %}
+
+  {% block cont %}
+    <table class="table table-bordered">
+       <thead>
+        	<tr>
+        	   <th>Fornecedor</th>
+             <th>Valor do Pedido</th>
+             <th>Data</th>
+             <th>Ações</th>
+        	</tr>
+      </thead>
+      <tbody>
+      	{% for p in pedido %}
+        		<tr>
+          		<td><a href="{% url 'loja.views.viewFornecedor' id=p.fornecedor.pk %}">{{ p.fornecedor.nome }}</a></td>
+              <td>{{ p.valor }}</td>
+              <td>{{ p.data }}</td>
+          		<td>
+          			<a href="" class="btn btn-danger" data-toggle="modal" data-target="#myModal"> Cancelar Pedido <span class="glyphicon glyphicon-remove"></a>
+          		</td>
+        		</tr>
+        	{% endfor %}
+      </tbody>
+    </table>
+
+    		{% for p in pedido %}
+           		<div id="myModal" class="modal fade" role="dialog">
+   				 <div class="modal-dialog">
+
+       					<div class="modal-content">
+        						<div class="modal-header">
+          						<button type="button" class="close" data-dismiss="modal">&times;</button>
+          						<h4 class="modal-title">Aviso!</h4>
+        						</div>
+        						<div class="modal-body">
+          						<p>Você tem certeza que deseja cancelar esse pedido?</p>
+        						</div>
+        						<div class="modal-footer">
+        							<a href="{% url 'loja.views.CancelaPedido' id=p.pk %}" class="btn btn-success">Cancelar Pedido</a>
+          						<a href="" class="btn btn-danger" data-dismiss="modal">Fechar</a>
+        						</div>
+      					</div>
+
+    				</div>
+  			</div>
+  		{% endfor %}
+  {% endblock %}

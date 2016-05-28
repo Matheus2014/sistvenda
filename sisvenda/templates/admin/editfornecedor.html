@@ -1,0 +1,14 @@
+{% extends 'admin/index.html' %}
+
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% block tit %} Editar Fornecedor {% endblock %}
+{% block cont %}
+	<form action="" method="post" enctype="multipart/form-data">
+		{% csrf_token %}	
+		{% bootstrap_form form %}
+	<button type="submit" class="btn btn-success">Editar Fornecedor</button>
+	</form>
+{% endblock %}
